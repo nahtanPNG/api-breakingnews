@@ -1,8 +1,9 @@
 const express = require("express");
+const userRoute = require("./src/routes/userRoute");
+
 const app = express();
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+// Utilizando rotas
+app.use("/dev", userRoute);
 
 app.listen(3000);
