@@ -18,6 +18,9 @@ async function isUserValid(req, res, next) {
     return res.status(404).send({ message: "User not found" });
   }
 
+  req.id = id;
+  req.user = user;
+
   next();
 }
 

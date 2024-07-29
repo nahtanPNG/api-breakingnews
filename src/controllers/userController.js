@@ -37,23 +37,19 @@ async function getAll(req, res) {
   res.send({ users });
 }
 
-async function getById(req, res) {
-  const id = req.params.id;
-  const user = await userService.getById(id);
-
+function getById(req, res) {
+  const user = req.user;
   res.send({ user });
 }
 
 async function update(req, res) {
-  const id = req.params.id;
+  const { id, user } = req;
   const { name, username, email, password, avatar, background } = req.body;
 
   if (!name && !username && !email && !password && !avatar && !background) {
     res.status(400).send({ message: "Submit at least one field for update" });
     return;
   }
-
-  const user = await userService.getById(id);
 
   await userService.update(
     id,
