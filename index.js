@@ -1,7 +1,9 @@
 import express from "express";
-import userRoute from "./src/routes/userRoute.js";
 import connectDB from "./src/database/db.js";
 import dotenv from "dotenv";
+
+import userRoute from "./src/routes/userRoute.js";
+import authRoute from "./src/routes/authRoute.js";
 
 dotenv.config();
 const app = express();
@@ -11,5 +13,6 @@ connectDB();
 app.use(express.json());
 // Utilizando rotas
 app.use("/user", userRoute);
+app.use("/auth", authRoute);
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
