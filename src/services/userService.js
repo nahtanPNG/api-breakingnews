@@ -1,4 +1,4 @@
-const User = require("../models/User");
+import User from "../models/User.js";
 
 // Criando um novo item dentro do schema
 const create = (body) => User.create(body);
@@ -10,4 +10,6 @@ const update = (id, name, username, email, password, avatar, background) =>
     { name, username, email, password, avatar, background } // Aqui passamos o que queremos alterar
   );
 
-module.exports = { create, getAll, getById, update };
+const userService = { create, getAll, getById, update };
+
+export default userService;

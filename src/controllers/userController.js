@@ -1,4 +1,4 @@
-const userService = require("../services/userService");
+import userService from "../services/userService.js";
 
 async function create(req, res) {
   try {
@@ -79,4 +79,6 @@ async function update(req, res) {
   }
 }
 
-module.exports = { create, getAll, getById, update };
+const userController = { create, getAll, getById, update };
+
+export default userController;
