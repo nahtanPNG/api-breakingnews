@@ -4,9 +4,7 @@ function connectDB() {
   console.log("Wait for database connection...");
 
   mongoose
-    .connect(
-      "mongodb+srv://root:abc123**@cluster0.bcwnmoh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-    )
+    .connect(process.env.MONGODB_URI)
     .then(() => console.log("MongoDB Atlas Connected"))
     .catch((error) => console.log(error));
 }
