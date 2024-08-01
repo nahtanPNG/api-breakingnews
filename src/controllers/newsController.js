@@ -1,4 +1,5 @@
 import newsService from "../services/newsService.js";
+import { ObjectId } from "mongoose";
 
 async function create(req, res) {
   try {
@@ -9,7 +10,12 @@ async function create(req, res) {
       return;
     }
 
-    await newsService.create({ title, text, banner, id: "objectidfake1" });
+    await newsService.create({
+      title,
+      text,
+      banner,
+      user: { _id: "66aa53857e54b9d64ff526bc" },
+    });
 
     res.send(201);
   } catch (error) {
@@ -17,9 +23,14 @@ async function create(req, res) {
   }
 }
 
-function getAll(req, res) {
+async function getAll(req, res) {
   try {
-    const news = [];
+    const news = await newsService.getAll();
+
+    if (news.lenght === 0) {
+      return res.status(400).send({ message: "There are no registered news" });
+    }
+
     res.send(news);
   } catch (error) {
     res.status(500).send({ message: error.message });
