@@ -1,8 +1,11 @@
 import News from "../models/News.js";
 
 const create = (body) => News.create(body);
-const getAll = () => News.find();
+const getAll = (limit, offset) =>
+  News.find().sort({ _id: -1 }).skip(offset).limit(limit).populate("user"); //Pegando o mais recente, quanto deve pular e o limite
 
-const newsService = { create, getAll };
+const countNews = () => News.countDocuments();
+
+const newsService = { create, getAll, countNews };
 
 export default newsService;

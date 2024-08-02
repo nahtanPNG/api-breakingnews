@@ -25,13 +25,29 @@ async function create(req, res) {
 
 async function getAll(req, res) {
   try {
-    const news = await newsService.getAll();
 
-    if (news.lenght === 0) {
-      return res.status(400).send({ message: "There are no registered news" });
-    }
+    const news = req.results
 
-    res.send(news);
+    res.send({
+      nextUrl: req.nextUrl,
+      previousUrl: req.previousUrl,
+      limit: req.limit,
+      offset: req.offset,
+      totalPosts: req.totalPosts,
+
+      results: news.map((newsItem) => ({
+        id: newsItem._id,
+        title: newsItem.title,
+        text: newsItem.text,
+        banner: newsItem.banner,
+        likes: newsItem.likes,
+        comments: newsItem.comments,
+        name: newsItem.user.name,
+        username: newsItem.user.username,
+        userAvatar: newsItem.user.avatar,
+        created_at: newsItem.created_at,
+      })),
+    });
   } catch (error) {
     res.status(500).send({ message: error.message });
   }
